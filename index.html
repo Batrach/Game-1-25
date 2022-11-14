@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet'  href='main.css'>
+<style>
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+body{
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.header{
+  position: absolute;
+  margin-top:-300px;
+  text-align: center;
+  
+}
+.main{
+  visibility: hidden;
+}
+.countainer{
+    text-align: center;
+ }
+ .time{
+  width: 150px;
+  display: block;
+  margin:20px auto;
+ }
+ .game{
+  display: grid;
+  grid-template-areas:
+  "1 2 3 4 5"
+  "6 7 8 9 10"
+  "11 12 13 14 15"
+  "16 17 18 19 20"
+  "21 22 23 24 25" ;
+  height: 358px;
+  width: 358px;
+  border: 1px solid black;
+  justify-items: center;
+        align-items: center;
+ }
+ .pole{
+  width: 70px;
+  height: 70px;
+  border: 1px solid black;
+  border-collapse: collapse;
+  text-align: center;
+  line-height: 70px;
+}
+.pole:hover{
+  cursor: pointer;
+}
+ .begin {
+  width: 100px;
+  margin: 10px auto;
+ }
+</style>
+</head>
+<body>
+<div class="header">
+<button class="begin">начать игру</button>
+<p>нажмите что бы начать игру, у вас будет 75 секунд что бы кликнуть на все цифры в порядке от 1 до 25</p>
+</div>
+<div class="main">
+<div class="container">
+  
+  <p class="time">Времени осталось: <span class="timeback">75</span></p>
+<div class="game">
+  <div class="pole 1"></div>
+  <div class="pole 2"></div>
+  <div class="pole 3"></div>
+  <div class="pole 4" ></div>
+  <div class="pole 5"></div>
+  <div class="pole 6"></div>
+  <div class="pole 7"></div>
+  <div class="pole 8"></div>
+  <div class="pole 9"></div>
+  <div class="pole 10"></div>
+  <div class="pole 11"></div>
+  <div class="pole 12"></div>
+  <div class="pole 13"></div>
+  <div class="pole 14"></div>
+  <div class="pole 15"></div>
+  <div class="pole 16"></div>
+  <div class="pole 17"></div>
+  <div class="pole 18"></div>
+  <div class="pole 19"></div>
+  <div class="pole 20"></div>
+  <div class="pole 21"></div>
+  <div class="pole 22"></div>
+  <div class="pole 23"></div>
+  <div class="pole 24"></div>
+  <div class="pole 25"></div>
+
+</div>
+<div class="begin">
+<button class="btn">Начать сначала</button>
+</div>
+
+</div>
+</div>
+</body> 
+</html>
+    <script>
+const timeback = document.querySelector('.timeback')
+const btn = document.querySelector('.btn')
+const time = document.querySelector('.time')
+const poles = document.querySelectorAll('.pole')
+const game = document.querySelector('.game')
+const header= document.querySelector('.header')
+const beginBtn = document.querySelector('.begin')
+const main = document.querySelector('.main')
+
+
+
+
+beginBtn.addEventListener('click', func1)
+function func1(){
+  main.style.cssText="visibility:visible;"
+  header.style.cssText="visibility:hidden;"
+  start()
+}
+
+
+
+
+btn.addEventListener('click', start2)
+
+function start2(){
+  clearTimeout(timerId)
+  start()
+  time.firstChild.textContent='Времени осталось: '
+  timeback.textContent=75
+}
+
+function start(){
+  
+  poles.forEach(function(pole) {
+    pole.style.backgroundColor ='white'
+  })
+  timerId = window.setInterval(timer, 1000)
+  function timer(){
+    
+    timeback.textContent -= 1
+    if(timeback.textContent == 0){
+      time.firstChild.textContent = 'Вы проиграли'
+      time.lastChild.textContent=''
+      clearTimeout(timerId)
+    }
+    
+  }
+allСycles = 25;
+var array= []
+for(i=1; i<=25; i++){
+   array.push(i)
+}
+for(countCycles=1;countCycles<=allСycles;countCycles++){
+    var arr2 =[]
+    poles[countCycles-1].innerHTML=(array.splice(Math.random()*array.length,1)[0]) 
+}
+poles.forEach(function(pole){
+pole.style.fontSize=getRandom(20,50)+"px";
+})
+poles.forEach(function(pole){
+pole.style.color=generateHex()
+})
+}
+
+  
+
+function getRandom(min,max){
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+let hex=['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F']
+function generateHex(){
+    let hexColor1 = "#";
+    for (let i=0; i<6; i++){
+        hexColor1 += hex[getRandomNumber()]
+    }
+    return hexColor1
+ }
+ function getRandomNumber(){
+     return Math.floor(Math.random()*hex.length)
+ }
+ var num = 1
+game.addEventListener('click', func2)
+ onclick()=true 
+ function func2(event){
+  var target= event.target
+  for(var i=num;i<=num;i++){
+  if(target.textContent==i){
+    
+   
+  num = num+1
+  target.style.backgroundColor="red"}
+  if(num>25){
+    time.firstChild.textContent = 'Вы Выиграли'
+    time.lastChild.textContent=''
+    clearInterval(timerId)
+  }
+  }
+ 
+  
+  }
+
+
+
+   
+
+</script>
+
+
